@@ -1,4 +1,3 @@
-// src/app/sections/Education.tsx
 export default function Education() {
   return (
     <section id="education" className="py-15 bg-white">

@@ -1,83 +1,132 @@
-import Link from 'next/link';
-import Image from 'next/image';
-import { FiDownload, FiArrowRight } from 'react-icons/fi';
+'use client'
+
+import Link from 'next/link'
+import Image from 'next/image'
+import { FiDownload, FiArrowRight } from 'react-icons/fi'
+import { motion, Variants } from 'framer-motion'
+import { useEffect, useState } from 'react'
 
 export default function Hero() {
+  const [isMounted, setIsMounted] = useState(false)
+
+  useEffect(() => {
+    setIsMounted(true)
+  }, [])
+
+  const containerAnimation: Variants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.15,
+        delayChildren: 0.25
+      }
+    }
+  }
+
+  const itemAnimation: Variants = {
+    hidden: { y: 25, opacity: 0 },
+    visible: {
+      y: 0,
+      opacity: 1,
+      transition: {
+        duration: 0.6,
+        ease: "easeOut" as const
+      }
+    }
+  }
+
+
   return (
-    <section className="relative bg-white dark:bg-gray-900 overflow-hidden">
-      {/* Background pattern (optional) */}
-      <div className="absolute inset-0 opacity-10 dark:opacity-5">
-        <div className="absolute inset-0 bg-gradient-to-r from-blue-400 to-purple-600 mix-blend-multiply"></div>
-      </div>
+    <section className="relative bg-gradient-to-br from-gray-50 to-gray-100 overflow-hidden">
+      <div className="container mx-auto px-4 sm:px-6 py-20 md:py-24 lg:py-26">
+        <div className="flex flex-col-reverse lg:flex-row items-center justify-between gap-10 lg:gap-16">
+          <motion.div
+            className="lg:w-1/2 space-y-7 text-center lg:text-left"
+            initial="hidden"
+            animate={isMounted ? "visible" : "hidden"}
+            variants={containerAnimation}
+          >
+            <motion.h1
+              className="text-5xl sm:text-6xl lg:text-7xl font-extrabold text-gray-900"
+              variants={itemAnimation}
+            >
+              <span className="block">Hello, I'm</span>
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-500 to-indigo-600">
+                Aditya Gour
+              </span>
+            </motion.h1>
 
-      <div className="container mx-auto px-6 py-16 md:py-24 lg:py-32">
-        <div className="flex flex-col-reverse md:flex-row items-center justify-between gap-8 md:gap-12">
-          {/* Text content - comes first in DOM but displayed second on mobile */}
-          <div className="md:w-1/2 space-y-6 text-center md:text-left mt-10 md:mt-0">
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-gray-900 dark:text-white">
-              Hi, I am <span className="text-blue-600 dark:text-blue-400">Aditya Gour</span>
-            </h1>
+            <motion.h2
+              className="text-2xl sm:text-3xl text-gray-700 font-semibold"
+              variants={itemAnimation}
+            >
+              Full Stack Engineer
+            </motion.h2>
 
-            <h2 className="text-2xl sm:text-3xl text-gray-600 dark:text-gray-300 font-medium">
-              Full Stack Developer & Web Solutions Architect
-            </h2>
+            <motion.p
+              className="text-xl text-gray-600 max-w-2xl mx-auto lg:mx-0 leading-relaxed"
+              variants={itemAnimation}
+            >
+              Crafting modern web applications with cutting-edge technologies.
+              Passionate about building intuitive interfaces and robust backend systems.
+            </motion.p>
 
-            <p className="text-lg text-gray-500 dark:text-gray-400 max-w-lg mx-auto md:mx-0">
-              I build high-performance web applications with modern technologies.
-              Focused on creating seamless user experiences and scalable solutions.
-            </p>
-
-            <div className="flex flex-wrap gap-4 justify-center md:justify-start">
+            <motion.div
+              className="flex flex-wrap gap-5 justify-center lg:justify-start pt-2"
+              variants={itemAnimation}
+            >
               <Link
                 href="#contact"
-                className="flex items-center gap-2 px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-all duration-300 shadow-lg hover:shadow-xl"
+                className="flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white rounded-xl transition-all duration-300 shadow-md hover:shadow-lg transform hover:-translate-y-1"
               >
-                Get In Touch
-                <FiArrowRight className="ml-1" />
+                Contact Me
+                <FiArrowRight className="text-lg" />
               </Link>
 
               <Link
                 href="/resume.pdf"
                 download
-                className="flex items-center gap-2 px-6 py-3 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800 rounded-lg transition-all duration-300"
+                className="flex items-center gap-2 px-8 py-4 border-2 border-gray-300 text-gray-700 hover:bg-white rounded-xl transition-all duration-300 hover:border-gray-400"
               >
-                <FiDownload />
-                Download CV
+                <FiDownload className="text-lg" />
+                Resume
               </Link>
-            </div>
+            </motion.div>
 
-            {/* Tech stack badges (optional) */}
-            <div className="flex flex-wrap gap-2 justify-center md:justify-start pt-4">
-              {['React', 'Next.js', 'Node.js', 'TypeScript', 'Tailwind', 'MongoDB'].map((tech) => (
-                <span
-                  key={tech}
-                  className="px-3 py-1 bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 text-sm rounded-full"
-                >
-                  {tech}
-                </span>
-              ))}
-            </div>
-          </div>
+            <motion.div
+              className="flex flex-wrap gap-3 justify-center lg:justify-start pt-6"
+              variants={itemAnimation}
+            >
+            </motion.div>
+          </motion.div>
 
-          {/* Profile image - comes second in DOM but displayed first on mobile */}
-          <div className="md:w-1/2 flex justify-center">
-            <div className="relative w-56 h-56 sm:w-64 sm:h-64 md:w-72 md:h-72 lg:w-80 lg:h-80 xl:w-96 xl:h-96">
-              <div className="absolute inset-0 bg-gradient-to-br from-blue-400 to-purple-500 rounded-full shadow-2xl overflow-hidden">
+          <motion.div
+            className="lg:w-1/2 flex justify-center"
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={isMounted ? { opacity: 1, scale: 1 } : {}}
+            transition={{ duration: 0.7, delay: 0.3 }}
+          >
+            <div className="relative w-64 h-64 sm:w-72 sm:h-72 md:w-80 md:h-80 lg:w-96 lg:h-96">
+              <motion.div
+                className="absolute inset-0 rounded-full shadow-xl overflow-hidden border-2 border-white"
+                whileHover={{ scale: 1.03, rotate: 1 }}
+                transition={{ type: "spring", stiffness: 300 }}
+              >
                 <Image
-                  src="/profile.jpg" // Replace with your image path
-                  alt="Aditya Gour"
-                  width={400}
-                  height={400}
-                  className="w-full h-full object-cover mix-blend-multiply opacity-90"
+                  src="/my-ghibli.jpg"
+                  alt="Aditya Gour - Full Stack Developer"
+                  width={500}
+                  height={500}
+                  className="w-full h-full object-cover grayscale-[10%] hover:grayscale-0 transition-all duration-500"
+                  style={{ objectPosition: 'center 20%' }}
                   priority
                 />
-              </div>
-              {/* Decorative element (optional) */}
-              <div className="absolute -bottom-3 -right-3 w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 bg-blue-100 dark:bg-blue-900 rounded-full opacity-70"></div>
+              </motion.div>
             </div>
-          </div>
+          </motion.div>
         </div>
       </div>
     </section>
-  );
-}
+  )
+} 

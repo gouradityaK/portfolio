@@ -51,7 +51,7 @@ export default function Hero() {
               className="text-5xl sm:text-6xl lg:text-7xl font-extrabold text-gray-900"
               variants={itemAnimation}
             >
-              <span className="block">Hello, I'm</span>
+              <span className="block">Hello, I am</span>
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-500 to-indigo-600">
                 Aditya Gour
               </span>
